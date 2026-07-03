@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.2...v1.0.3) (2026-07-03)
+
+
+### Bug Fixes
+
+* add catch-all patch release rule for non-conventional commits ([#8](https://github.com/zackcornelius/HA-RF-Remote/issues/8)) ([0a34c41](https://github.com/zackcornelius/HA-RF-Remote/commit/0a34c4184e3ba67ea2eac0bde0f2b14f566a9fc8))
+
 ## [1.0.2](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.1...v1.0.2) (2026-07-03)
 
 ## [1.0.1](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.0...v1.0.1) (2026-07-03)

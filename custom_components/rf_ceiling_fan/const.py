@@ -12,8 +12,8 @@ FREQUENCY: Final = 433_920_000
 MODULATION: Final = ModulationType.OOK
 
 # Frame repeat count — the physical remote transmits each code 3 times;
-# repeat_count=3 sends 1 initial frame + 3 repeats (4 total) for reliability.
-FRAME_REPEAT_COUNT: Final = 3
+# repeat_count=5 sends 1 initial frame + 5 repeats (6 total) for reliability.
+FRAME_REPEAT_COUNT: Final = 5
 
 # EV1527-like OOK timing parameters (microseconds)
 # T = 350 μs

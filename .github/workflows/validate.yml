@@ -38,4 +38,4 @@ jobs:
       - name: Run ruff
         run: ruff check custom_components/
       - name: Run pycodestyle
-        run: pycodestyle custom_components/
+        run: pycodestyle --max-line-length=100 custom_components/

@@ -16,7 +16,8 @@
           {"type": "refactor", "release": "patch"},
           {"type": "test", "release": "patch"},
           {"type": "build", "release": "patch"},
-          {"type": "ci", "release": "patch"}
+          {"type": "ci", "release": "patch"},
+          {"release": "patch"}
         ]
       }
     ],

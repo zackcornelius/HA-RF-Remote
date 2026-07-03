@@ -16,14 +16,14 @@ MODULATION: Final = ModulationType.OOK
 FRAME_REPEAT_COUNT: Final = 5
 
 # EV1527-like OOK timing parameters (microseconds)
-# T = 350 μs
-_T_US: Final = 350
+# T = 410 μs (measured from Pronto capture: ~408–412 μs per count)
+_T_US: Final = 410
 SYNC_ON_US: Final = _T_US
-SYNC_OFF_US: Final = 31 * _T_US   # 10 850 μs gap after sync pulse
-BIT1_ON_US: Final = 3 * _T_US    # 1 050 μs high for a '1' bit
-BIT1_OFF_US: Final = _T_US        # 350 μs low for a '1' bit
-BIT0_ON_US: Final = _T_US         # 350 μs high for a '0' bit
-BIT0_OFF_US: Final = 3 * _T_US   # 1 050 μs low for a '0' bit
+SYNC_OFF_US: Final = 31 * _T_US   # ~12 710 μs gap after sync pulse
+BIT1_ON_US: Final = 3 * _T_US    # ~1 230 μs high for a '1' bit
+BIT1_OFF_US: Final = _T_US        # ~410 μs low for a '1' bit
+BIT0_ON_US: Final = _T_US         # ~410 μs high for a '0' bit
+BIT0_OFF_US: Final = 3 * _T_US   # ~1 230 μs low for a '0' bit
 
 # 24-bit RF codes (verified bit-by-bit from the problem spec)
 CODE_LIGHT_POWER: Final = 0x6DD905   # 0110 1101 1101 1001 0000 0101

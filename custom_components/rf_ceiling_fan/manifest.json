@@ -6,6 +6,7 @@
   "config_flow": true,
   "dependencies": ["radio_frequency"],
   "documentation": "https://github.com/zackcornelius/HA-RF-Remote",
+  "issue_tracker": "https://github.com/zackcornelius/HA-RF-Remote/issues",
   "integration_type": "device",
   "iot_class": "assumed_state",
   "requirements": ["rf-protocols>=4.0.0"]

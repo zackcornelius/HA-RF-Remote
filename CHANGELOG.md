@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.4...v1.1.0) (2026-07-03)
+
+
+### Features
+
+* EV1527: expose timer buttons, add command-byte scan tool ([#10](https://github.com/zackcornelius/HA-RF-Remote/issues/10)) ([22f0a87](https://github.com/zackcornelius/HA-RF-Remote/commit/22f0a878695980f9c3d0a72a1428d44428021a81))
+
 ## [1.0.4](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.3...v1.0.4) (2026-07-03)
 
 

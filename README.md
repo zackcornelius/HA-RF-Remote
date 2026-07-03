@@ -6,31 +6,56 @@ entity platform introduced in Home Assistant 2026.5.
 
 ## What it does
 
-The integration exposes two entities for a 433 MHz ceiling fan remote:
+The integration exposes five entity types for a 433 MHz ceiling fan remote:
 
 | Entity | Features |
 |--------|----------|
 | **Fan** (`fan.rf_ceiling_fan`) | On / Off, three discrete speeds |
 | **Light** (`light.rf_ceiling_fan`) | On / Off, 8-step dimmer, two colour temperatures (warm 3000 K / cold 6500 K) |
+| **Button** – Timer 1 h | Activates the remote's 1-hour auto-off timer |
+| **Button** – Timer 4 h | Activates the remote's 4-hour auto-off timer |
+| **Button** – Send scan command *(diagnostic)* | Transmits the EV1527 code for the byte selected in the number entity below |
+| **Number** – Scan command byte *(diagnostic, 0–255)* | Sets which command byte is sent when the scan button is pressed |
 
-## RF commands
+## RF protocol
 
-All codes are 24-bit, encoded with EV1527-like OOK pulse-width modulation at
-433.92 MHz (T = 350 µs).
+All codes use the **EV1527** OOK protocol at 433.92 MHz with T ≈ 410 µs:
 
-| Action | 24-bit code |
-|--------|-------------|
-| Light power (toggle) | `0110 1101 1101 1001 0000 0101` |
-| Fan speed 1 | `0110 1101 1101 1001 0011 0011` |
-| Fan speed 2 | `0110 1101 1101 1001 0001 1010` |
-| Fan speed 3 | `0110 1101 1101 1001 0011 0010` |
-| Fan off | `0110 1101 1101 1001 0011 0000` |
-| Light up | `0110 1101 1101 1001 0001 1001` |
-| Light down | `0110 1101 1101 1001 0011 0101` |
-| Timer 1 h | `0110 1101 1101 1001 0001 0110` |
-| Timer 4 h | `0110 1101 1101 1001 0011 0110` |
-| Colour temp cold | `0110 1101 1101 1001 0001 1000` |
-| Colour temp warm | `0110 1101 1101 1001 0011 0111` |
+* **Sync pulse**: 1 T high + 31 T low
+* **'1' bit**: 3 T high + 1 T low
+* **'0' bit**: 1 T high + 3 T low
+
+Each 24-bit code is structured as:
+
+```
+[ 16-bit device address 0x6DD9 ][ 8-bit command byte ]
+```
+
+### Known command bytes
+
+| Action | Command byte | Full 24-bit code |
+|--------|:------------:|-----------------|
+| Light power (toggle) | `0x05` | `0x6DD905` |
+| Light up | `0x19` | `0x6DD919` |
+| Light down | `0x35` | `0x6DD935` |
+| Colour temp cold | `0x18` | `0x6DD918` |
+| Colour temp warm | `0x37` | `0x6DD937` |
+| Fan speed 1 | `0x33` | `0x6DD933` |
+| Fan speed 2 | `0x1A` | `0x6DD91A` |
+| Fan speed 3 | `0x32` | `0x6DD932` |
+| Fan off | `0x30` | `0x6DD930` |
+| Timer 1 h | `0x16` | `0x6DD916` |
+| Timer 4 h | `0x36` | `0x6DD936` |
+
+### Scanning for unknown commands
+
+To discover what other command bytes (0x00–0xFF) do on the physical device:
+
+1. In Home Assistant, set the **Scan command byte** number entity to the byte you want to try (e.g. `0x20` = 32).
+2. Press the **Send scan command** button.
+3. Observe the physical fan/light for any response.
+
+Both entities appear under the **Diagnostic** category in the device page and are hidden by default in the main dashboard.
 
 ## Requirements
 

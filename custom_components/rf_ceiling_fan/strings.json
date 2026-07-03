@@ -18,9 +18,25 @@
     }
   },
   "entity": {
+    "button": {
+      "timer_1h": {
+        "name": "Timer 1 h"
+      },
+      "timer_4h": {
+        "name": "Timer 4 h"
+      },
+      "send_scan_command": {
+        "name": "Send scan command"
+      }
+    },
     "light": {
       "light": {
         "name": "[%key:component::light::title%]"
+      }
+    },
+    "number": {
+      "scan_command": {
+        "name": "Scan command byte"
       }
     }
   }

@@ -65,12 +65,14 @@ class RFCeilingFanScanCommandNumber(RFCeilingFanEntity, NumberEntity, RestoreEnt
                 self._attr_native_value = max(0.0, min(255.0, value))
             except (ValueError, TypeError):
                 pass
-        self.hass.data[DOMAIN][self._entry_id]["scan_command"] = int(
-            self._attr_native_value
-        )
+        self.hass.data.setdefault(DOMAIN, {}).setdefault(self._entry_id, {})[
+            "scan_command"
+        ] = int(self._attr_native_value)
 
     async def async_set_native_value(self, value: float) -> None:
         """Update the scan command byte and sync to shared state."""
         self._attr_native_value = value
-        self.hass.data[DOMAIN][self._entry_id]["scan_command"] = int(value)
+        self.hass.data.setdefault(DOMAIN, {}).setdefault(self._entry_id, {})[
+            "scan_command"
+        ] = int(value)
         self.async_write_ha_state()

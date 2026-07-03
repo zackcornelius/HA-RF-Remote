@@ -96,7 +96,7 @@ class RFCeilingFanScanButton(RFCeilingFanEntity, ButtonEntity):
     async def async_press(self) -> None:
         """Send the selected scan command."""
         command_byte: int = int(
-            self.hass.data[DOMAIN][self._entry_id].get("scan_command", 0)
+            self.hass.data.get(DOMAIN, {}).get(self._entry_id, {}).get("scan_command", 0)
         )
         code = (DEVICE_ADDRESS << 8) | (command_byte & 0xFF)
         await async_send_command(

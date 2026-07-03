@@ -1,0 +1,12 @@
+{
+  "name": "ha-rf-remote",
+  "version": "1.0.0",
+  "description": "Release automation for HA RF Remote",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "semantic-release": "^25.0.0"
+  }
+}

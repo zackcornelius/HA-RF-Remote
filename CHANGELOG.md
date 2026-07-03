@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.3...v1.0.4) (2026-07-03)
+
+
+### Bug Fixes
+
+* correct OOK timing constant T from 350 μs to 410 μs based on Pronto data ([#9](https://github.com/zackcornelius/HA-RF-Remote/issues/9)) ([fe66ba3](https://github.com/zackcornelius/HA-RF-Remote/commit/fe66ba332e8909bb74ec5f7049558ebe6f32f93b))
+
 ## [1.0.3](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.2...v1.0.3) (2026-07-03)
 
 

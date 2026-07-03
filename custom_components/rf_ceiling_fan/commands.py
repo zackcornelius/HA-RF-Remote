@@ -18,6 +18,7 @@ from .const import (
     BIT1_OFF_US,
     BIT1_ON_US,
     FREQUENCY,
+    FRAME_REPEAT_COUNT,
     SYNC_OFF_US,
     SYNC_ON_US,
 )
@@ -33,4 +34,4 @@ def make_command(code: int) -> OOKCommand:
             timings.extend([BIT1_ON_US, -BIT1_OFF_US])
         else:
             timings.extend([BIT0_ON_US, -BIT0_OFF_US])
-    return OOKCommand(frequency=FREQUENCY, timings=timings)
+    return OOKCommand(frequency=FREQUENCY, timings=timings, repeat_count=FRAME_REPEAT_COUNT)

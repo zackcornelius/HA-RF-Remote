@@ -1,0 +1,11 @@
+{
+  "domain": "rf_ceiling_fan",
+  "name": "RF Ceiling Fan",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": ["radio_frequency"],
+  "documentation": "https://github.com/zackcornelius/HA-RF-Remote",
+  "integration_type": "device",
+  "iot_class": "assumed_state",
+  "requirements": ["rf-protocols>=4.0.0"]
+}

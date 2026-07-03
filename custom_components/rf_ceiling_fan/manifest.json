@@ -1,6 +1,7 @@
 {
   "domain": "rf_ceiling_fan",
   "name": "RF Ceiling Fan",
+  "version": "1.0.0",
   "codeowners": [],
   "config_flow": true,
   "dependencies": ["radio_frequency"],

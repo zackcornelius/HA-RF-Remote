@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.1.0...v1.1.1) (2026-07-04)
+
+
+### Bug Fixes
+
+* Add "Toggle beep" button (command 0x08) ([#11](https://github.com/zackcornelius/HA-RF-Remote/issues/11)) ([09f2737](https://github.com/zackcornelius/HA-RF-Remote/commit/09f2737cb707d8c6575ef73968301eba25e25585))
+
 # [1.1.0](https://github.com/zackcornelius/HA-RF-Remote/compare/v1.0.4...v1.1.0) (2026-07-03)
 
 

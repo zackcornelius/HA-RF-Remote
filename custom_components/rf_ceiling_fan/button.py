@@ -1,8 +1,9 @@
 """Button platform for the RF Ceiling Fan integration.
 
-Exposes three button entities:
-  • Timer 1 h  — activates the remote's 1-hour auto-off timer.
-  • Timer 4 h  — activates the remote's 4-hour auto-off timer.
+Exposes button entities:
+  • Timer 1 h     — activates the remote's 1-hour auto-off timer.
+  • Timer 4 h     — activates the remote's 4-hour auto-off timer.
+  • Toggle beep   — toggles the confirmation beep on the fan.
   • Send scan command — sends the EV1527 code whose command byte is set by
     the companion "Scan command byte" number entity.  Useful for discovering
     unknown remote commands when experimenting with the full 0x00–0xFF range.
@@ -16,7 +17,7 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .commands import make_command
-from .const import CODE_TIMER_1H, CODE_TIMER_4H, DEVICE_ADDRESS, DOMAIN
+from .const import CODE_TIMER_1H, CODE_TIMER_4H, CODE_TOGGLE_BEEP, DEVICE_ADDRESS, DOMAIN
 from .entity import RFCeilingFanEntity
 
 PARALLEL_UPDATES = 1
@@ -32,18 +33,19 @@ async def async_setup_entry(
         [
             RFCeilingFanTimer1HButton(config_entry),
             RFCeilingFanTimer4HButton(config_entry),
+            RFCeilingFanToggleBeepButton(config_entry),
             RFCeilingFanScanButton(config_entry),
         ]
     )
 
 
-class _RFCeilingFanTimerButton(RFCeilingFanEntity, ButtonEntity):
-    """Base class for a fixed-code timer button."""
+class _RFCeilingFanFixedCodeButton(RFCeilingFanEntity, ButtonEntity):
+    """Base class for a button that sends a fixed RF command code."""
 
     _code: int
 
     async def async_press(self) -> None:
-        """Send the timer RF command."""
+        """Send the RF command."""
         await async_send_command(
             self.hass,
             self._transmitter,
@@ -52,7 +54,7 @@ class _RFCeilingFanTimerButton(RFCeilingFanEntity, ButtonEntity):
         )
 
 
-class RFCeilingFanTimer1HButton(_RFCeilingFanTimerButton):
+class RFCeilingFanTimer1HButton(_RFCeilingFanFixedCodeButton):
     """Button that activates the 1-hour auto-off timer."""
 
     _code = CODE_TIMER_1H
@@ -64,7 +66,7 @@ class RFCeilingFanTimer1HButton(_RFCeilingFanTimerButton):
         self._attr_unique_id = f"{entry.entry_id}_timer_1h"
 
 
-class RFCeilingFanTimer4HButton(_RFCeilingFanTimerButton):
+class RFCeilingFanTimer4HButton(_RFCeilingFanFixedCodeButton):
     """Button that activates the 4-hour auto-off timer."""
 
     _code = CODE_TIMER_4H
@@ -74,6 +76,18 @@ class RFCeilingFanTimer4HButton(_RFCeilingFanTimerButton):
         """Initialize the button."""
         super().__init__(entry)
         self._attr_unique_id = f"{entry.entry_id}_timer_4h"
+
+
+class RFCeilingFanToggleBeepButton(_RFCeilingFanFixedCodeButton):
+    """Button that toggles the confirmation beep on the fan."""
+
+    _code = CODE_TOGGLE_BEEP
+    _attr_translation_key = "toggle_beep"
+
+    def __init__(self, entry: ConfigEntry) -> None:
+        """Initialize the button."""
+        super().__init__(entry)
+        self._attr_unique_id = f"{entry.entry_id}_toggle_beep"
 
 
 class RFCeilingFanScanButton(RFCeilingFanEntity, ButtonEntity):

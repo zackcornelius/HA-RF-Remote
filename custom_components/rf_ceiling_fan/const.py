@@ -41,6 +41,7 @@ CODE_FAN_SPEED_3: Final = 0x6DD932   # command 0x32
 CODE_FAN_OFF: Final = 0x6DD930       # command 0x30
 CODE_TIMER_1H: Final = 0x6DD916      # command 0x16
 CODE_TIMER_4H: Final = 0x6DD936      # command 0x36
+CODE_TOGGLE_BEEP: Final = 0x6DD908   # command 0x08
 
 # Light dimmer: number of discrete brightness steps on the remote
 BRIGHTNESS_STEPS: Final = 8

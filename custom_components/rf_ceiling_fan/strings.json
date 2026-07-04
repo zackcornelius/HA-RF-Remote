@@ -27,6 +27,9 @@
       },
       "send_scan_command": {
         "name": "Send scan command"
+      },
+      "toggle_beep": {
+        "name": "Toggle beep"
       }
     },
     "light": {

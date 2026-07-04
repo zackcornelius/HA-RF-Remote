@@ -16,7 +16,7 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .commands import make_command
-from .const import CODE_TIMER_1H, CODE_TIMER_4H, DEVICE_ADDRESS, DOMAIN
+from .const import CODE_TIMER_1H, CODE_TIMER_4H, CODE_TOGGLE_BEEP, DEVICE_ADDRESS, DOMAIN
 from .entity import RFCeilingFanEntity
 
 PARALLEL_UPDATES = 1
@@ -32,6 +32,7 @@ async def async_setup_entry(
         [
             RFCeilingFanTimer1HButton(config_entry),
             RFCeilingFanTimer4HButton(config_entry),
+            RFCeilingFanToggleBeepButton(config_entry),
             RFCeilingFanScanButton(config_entry),
         ]
     )
@@ -74,6 +75,18 @@ class RFCeilingFanTimer4HButton(_RFCeilingFanTimerButton):
         """Initialize the button."""
         super().__init__(entry)
         self._attr_unique_id = f"{entry.entry_id}_timer_4h"
+
+
+class RFCeilingFanToggleBeepButton(_RFCeilingFanTimerButton):
+    """Button that toggles the confirmation beep on the fan."""
+
+    _code = CODE_TOGGLE_BEEP
+    _attr_translation_key = "toggle_beep"
+
+    def __init__(self, entry: ConfigEntry) -> None:
+        """Initialize the button."""
+        super().__init__(entry)
+        self._attr_unique_id = f"{entry.entry_id}_toggle_beep"
 
 
 class RFCeilingFanScanButton(RFCeilingFanEntity, ButtonEntity):

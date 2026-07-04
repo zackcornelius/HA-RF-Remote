@@ -1,8 +1,9 @@
 """Button platform for the RF Ceiling Fan integration.
 
-Exposes three button entities:
-  • Timer 1 h  — activates the remote's 1-hour auto-off timer.
-  • Timer 4 h  — activates the remote's 4-hour auto-off timer.
+Exposes button entities:
+  • Timer 1 h     — activates the remote's 1-hour auto-off timer.
+  • Timer 4 h     — activates the remote's 4-hour auto-off timer.
+  • Toggle beep   — toggles the confirmation beep on the fan.
   • Send scan command — sends the EV1527 code whose command byte is set by
     the companion "Scan command byte" number entity.  Useful for discovering
     unknown remote commands when experimenting with the full 0x00–0xFF range.
@@ -38,13 +39,13 @@ async def async_setup_entry(
     )
 
 
-class _RFCeilingFanTimerButton(RFCeilingFanEntity, ButtonEntity):
-    """Base class for a fixed-code timer button."""
+class _RFCeilingFanFixedCodeButton(RFCeilingFanEntity, ButtonEntity):
+    """Base class for a button that sends a fixed RF command code."""
 
     _code: int
 
     async def async_press(self) -> None:
-        """Send the timer RF command."""
+        """Send the RF command."""
         await async_send_command(
             self.hass,
             self._transmitter,
@@ -53,7 +54,7 @@ class _RFCeilingFanTimerButton(RFCeilingFanEntity, ButtonEntity):
         )
 
 
-class RFCeilingFanTimer1HButton(_RFCeilingFanTimerButton):
+class RFCeilingFanTimer1HButton(_RFCeilingFanFixedCodeButton):
     """Button that activates the 1-hour auto-off timer."""
 
     _code = CODE_TIMER_1H
@@ -65,7 +66,7 @@ class RFCeilingFanTimer1HButton(_RFCeilingFanTimerButton):
         self._attr_unique_id = f"{entry.entry_id}_timer_1h"
 
 
-class RFCeilingFanTimer4HButton(_RFCeilingFanTimerButton):
+class RFCeilingFanTimer4HButton(_RFCeilingFanFixedCodeButton):
     """Button that activates the 4-hour auto-off timer."""
 
     _code = CODE_TIMER_4H
@@ -77,7 +78,7 @@ class RFCeilingFanTimer4HButton(_RFCeilingFanTimerButton):
         self._attr_unique_id = f"{entry.entry_id}_timer_4h"
 
 
-class RFCeilingFanToggleBeepButton(_RFCeilingFanTimerButton):
+class RFCeilingFanToggleBeepButton(_RFCeilingFanFixedCodeButton):
     """Button that toggles the confirmation beep on the fan."""
 
     _code = CODE_TOGGLE_BEEP
